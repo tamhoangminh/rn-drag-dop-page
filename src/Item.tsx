@@ -17,7 +17,7 @@ import {
   marginLeft,
   marginTop,
 } from "../App";
-import { useLayout } from "./Layout";
+import { Offset, useLayout } from "./Layout";
 const { width, height } = Dimensions.get("window");
 
 const containerWidth = width * 0.75;
@@ -93,12 +93,11 @@ const Item = ({ item, ready, offsets, index, scrollRef, translateX }: any) => {
         else if (now - onEdgeTs.value >= 500) {
           onEdgeTs.value = 0;
           const pageIndex = Math.round(translateX.value / containerWidth) - 1;
-          console.log("down", offsetX, pageIndex);
           if (pageIndex < 0 || pageIndex > pageQty) return;
           if (pageIndex != offset.page.value) {
             offset.page.value = pageIndex;
             const lastItemNewPage = offsets.find(
-              (x) => x.originalOrder.value == (pageIndex + 1) * itemPerPage - 1,
+              (x: Offset) => x.order.value == (pageIndex + 1) * itemPerPage - 1,
             );
             lastItemNewPage.page.value = pageIndex + 1;
             offsetX -= containerWidth;
@@ -116,12 +115,11 @@ const Item = ({ item, ready, offsets, index, scrollRef, translateX }: any) => {
         else if (now - onEdgeTs.value >= 500) {
           onEdgeTs.value = 0;
           const pageIndex = Math.round(translateX.value / containerWidth) + 1;
-          console.log("up", offsetX, pageIndex);
           if (pageIndex < 0 || pageIndex > pageQty) return;
           if (pageIndex != offset.page.value) {
             offset.page.value = pageIndex;
             const firstItemNewPage = offsets.find(
-              (x) => x.originalOrder.value == pageIndex * itemPerPage,
+              (x: Offset) => x.order.value == pageIndex * itemPerPage,
             );
             firstItemNewPage.page.value = pageIndex - 1;
             offsetX += containerWidth;
@@ -186,7 +184,7 @@ const Item = ({ item, ready, offsets, index, scrollRef, translateX }: any) => {
         style={[styles.itemWrap, { position: "absolute" }, animatedStyles]}
       >
         <Animated.Text style={[styles.itemText, animatedText]}>
-          {item.id}
+          {item.text}
         </Animated.Text>
         <Pressable style={{ position: "absolute" }}>
           <Animated.View

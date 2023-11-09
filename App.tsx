@@ -9,7 +9,7 @@ import Animated, {
   useSharedValue,
 } from "react-native-reanimated";
 import Item from "./src/Item";
-import { useLayout } from "./src/Layout";
+import { Offset, useLayout } from "./src/Layout";
 
 const words = [
   { id: 1, text: "Thiên" },
@@ -63,11 +63,11 @@ function App(): JSX.Element {
   const translateX = useSharedValue(0);
 
   // giá trị original để đánh dấu, sẽ chỉ cập nhật sau khi quá trình thả
-  const offsets = words.map((item, index) => ({
+  const offsets: Offset[] = words.map((item, index) => ({
     originalOrder: useSharedValue(0),
     order: useSharedValue(index), // thứ tự trong list
     originalPage: useSharedValue(Math.floor(index / itemPerPage)),
-    page: useSharedValue(Math.floor(index / itemPerPage)), // thứ tự trong list
+    page: useSharedValue(Math.floor(index / itemPerPage)),
     width: useSharedValue(0),
     height: useSharedValue(0),
     rowHeight: useSharedValue(0),
@@ -142,7 +142,7 @@ function App(): JSX.Element {
                           }}
                           key={`${item.id}_${from + index}`}
                         >
-                          <Text style={styles.itemText}>{item.id}</Text>
+                          <Text style={styles.itemText}>{item.text}</Text>
                         </View>
                       ))}
                     </View>

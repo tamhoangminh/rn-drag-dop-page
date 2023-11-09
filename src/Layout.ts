@@ -1,4 +1,24 @@
 import { between } from "react-native-redash";
+import { SharedValue } from "react-native-reanimated";
+
+export type SharedValues<T extends Record<string, string | number | boolean>> =
+  {
+    [K in keyof T]: SharedValue<T[K]>;
+  };
+
+export type Offset = SharedValues<{
+  originalOrder: number;
+  order: number;
+  originalPage: number;
+  page: number;
+  width: number;
+  height: number;
+  rowHeight: number;
+  x: number;
+  y: number;
+  originalX: number;
+  originalY: number;
+}>;
 
 export const useLayout = (props: {
   itemPerRow: number;
