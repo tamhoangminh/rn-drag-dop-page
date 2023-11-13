@@ -146,7 +146,7 @@ export const useLayout = (props: {
         if (offsets[gIndex * itemPerRow + i]) {
           const item = offsets[gIndex * itemPerRow + i];
           // tránh phần tử đang chọn ra
-          if (ignoreIndex && item.originalOrder.value == ignoreIndex) {
+          if (item.originalOrder.value == ignoreIndex) {
             continue;
           }
           item.rowHeight.value = maxHeight;
@@ -154,7 +154,7 @@ export const useLayout = (props: {
             pageWidth * item.page.value + marginLeft + item.width.value * i;
           item.y.value = yValue;
           // Nếu có ignoreIndex tức là đang trong quá trình kéo, sẽ bỏ qua phần tử đang kéo và ko set giá trị original
-          if (ignoreIndex) {
+          if (ignoreIndex !== undefined) {
             continue;
           }
           item.originalY.value = yValue;

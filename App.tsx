@@ -64,7 +64,7 @@ function App(): JSX.Element {
 
   // giá trị original để đánh dấu, sẽ chỉ cập nhật sau khi quá trình thả
   const offsets: Offset[] = words.map((item, index) => ({
-    originalOrder: useSharedValue(0),
+    originalOrder: useSharedValue(-1),
     order: useSharedValue(index), // thứ tự trong list
     originalPage: useSharedValue(Math.floor(index / itemPerPage)),
     page: useSharedValue(Math.floor(index / itemPerPage)),
